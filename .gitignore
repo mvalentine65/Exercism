@@ -2,6 +2,6 @@
 **/*.rs.bk
 Cargo.lock
 /shell/
-./README.md
+README.md
 *.exe
 */*/.exercism/

@@ -1,33 +1,31 @@
 #[derive(Debug)]
-pub struct HighScores<'a>{
+pub struct HighScores<'a> {
     pub score_list: &'a [u32],
 }
 
-
-impl HighScores {
-    pub fn new(scores: &[u32]) -> Self {
-        // unimplemented!(
-        //     "Construct a HighScores struct, given the scores: {:?}",
-        //     scores
-        // )
+impl<'a> HighScores<'a> {
+    pub fn new(scores: &'a [u32]) -> Self {
         HighScores {
-            score_list: scores,
+            score_list: &scores,
         }
     }
 
     pub fn scores(&self) -> &[u32] {
-        unimplemented!("Return all the scores as a slice")
+        &self.score_list
     }
 
     pub fn latest(&self) -> Option<u32> {
-        unimplemented!("Return the latest (last) score")
+        self.score_list.last().copied()
     }
 
     pub fn personal_best(&self) -> Option<u32> {
-        unimplemented!("Return the highest score")
+        self.score_list.iter().max().copied()
     }
 
     pub fn personal_top_three(&self) -> Vec<u32> {
-        unimplemented!("Return 3 highest scores")
+        let mut temp: Vec<u32> = self.score_list.to_vec();
+        temp.sort_unstable();
+        temp.reverse();
+        temp.into_iter().take(3).collect::<Vec<u32>>()
     }
 }

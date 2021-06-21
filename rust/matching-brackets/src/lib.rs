@@ -1,26 +1,13 @@
-use std::collections::HashMap;
-
-// turns out this has to deal with stings containing numbers too
-
 pub fn brackets_are_balanced(string: &str) -> bool {
-    let mut stack: Vec<char> = Vec::<char>::new();
-    let opener_needed: HashMap<char, char> = [('}', '{'), (']', '['), (')', '(')]
-        .iter()
-        .cloned()
-        .collect();
+    let mut stack = Vec::<char>::new();
     for c in string.chars() {
-        if String::from("{{}}[]()").contains(c) {
-            match opener_needed.get(&c) {
-                Some(&closer) => {
-                    if stack.is_empty() {
-                        return false;
-                    } else if stack.pop().unwrap() != closer {
-                        return false;
-                    }
-                }
-                None => stack.push(c),
-            }
+        match c {
+            '{' | '[' | '(' => stack.push(c),
+            '}' => if stack.pop() != Some('{') {return false;},
+            ']' => if stack.pop() != Some('[') {return false;},
+            ')' => if stack.pop() != Some('(') {return false;},
+            _ => continue,
         }
     }
-    return stack.is_empty();
+    stack.is_empty()
 }

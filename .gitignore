@@ -7,5 +7,5 @@ README.md
 */*/.exercism/
 rust/Easy/*/*.json
 rust/Easy/*/.exercism
-rust/*/*.json
+*/*/*.json
 
